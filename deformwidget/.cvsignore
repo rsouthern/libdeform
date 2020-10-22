@@ -1,0 +1,6 @@
+Makefile
+moc/*
+obj/*
+bin/*
+deformwidget
+deformwidget.pro.user

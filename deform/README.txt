@@ -1,0 +1,4 @@
+Requires:
+- SuiteSparse
+- OpenMesh
+- CGAL

@@ -1,0 +1,3 @@
+Requires:
+- OpenMesh
+- SuiteSparse

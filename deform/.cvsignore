@@ -1,0 +1,8 @@
+*.o
+Makefile
+deform.pro.user
+libdeform.*
+lib/libdeform.*
+lib/libdeform.so.1.0.0
+*.swp
+doc
