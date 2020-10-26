@@ -17,12 +17,12 @@ class VertexColorMap {
 public:
     VertexColorMap();
     ~VertexColorMap();
-    bool colorToIdx(unsigned char /*r*/, unsigned char /*g*/, unsigned char /*b*/, GLuint */*idx*/);
-    bool idxToColor(GLuint /*idx*/, unsigned char */*r*/, unsigned char */*g*/, unsigned char */*b*/);
+    bool colorToIdx(const unsigned char &/*r*/, const unsigned char &/*g*/, const unsigned char &/*b*/, GLuint */*idx*/);
+    bool idxToColor(const GLuint &/*idx*/, unsigned char */*r*/, unsigned char */*g*/, unsigned char */*b*/);
 private:
     GLuint redMask, greenMask, blueMask;
-    GLuint makeMask(GLuint);
-    string toBinary(GLuint /*input*/);      //< For debugging
+    GLuint makeMask(const GLuint&);
+    string toBinary(const GLuint &/*input*/);      //< For debugging
     int redShift, greenShift, blueShift;
 };
 

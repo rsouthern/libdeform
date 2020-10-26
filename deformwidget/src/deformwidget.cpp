@@ -279,58 +279,60 @@ bool DeformWidget::eventFilter(QObject *o, QEvent *e) {
         ke = (QKeyEvent *) e;
         switch(ke->key()) {
         case KEY_SELECT:
-            if (state == STATE_IDLE) state = STATE_SELECT;
+            if ((state == STATE_IDLE) && (!ke->isAutoRepeat())) state = STATE_SELECT;
             break;
         case KEY_DEFORM:
-            if (state == STATE_IDLE) state = STATE_DEFORM;
+            if ((state == STATE_IDLE) && (!ke->isAutoRepeat())) {
+                printf("\nEntering Deformation Mode");
+                // Initialise a deformer with our currenty selected constraints
+                if (op != NULL) delete op;
+                switch(currentDeformer) {
+                case (DEF_LAPLACIAN_COT):
+                    op = new Laplacian_COT();
+                    break;
+                case (DEF_LAPLACIAN_DUAL):
+                    op = new Laplacian_DUAL();
+                    break;
+                case (DEF_LAPLACIAN_DUAL2):
+                    op = new Laplacian_DUAL2();
+                    break;
+                default:
+                    op = new Laplacian();
+                    break;
+                }
+                if (op != NULL) {
+                    for (i=0; i<mesh_.n_vertices(); ++i) {
+                        // append anchors and constraints
+                        if (anchors[i])
+                            op->addAnchor(i);
+                        if (constraints[i])
+                            op->addHandle(i);
 
-            // Initialise a deformer with our currenty selected constraints
-            if (op != NULL) delete op;
-            switch(currentDeformer) {
-            case (DEF_LAPLACIAN_COT):
-                op = new Laplacian_COT();
-                break;
-            case (DEF_LAPLACIAN_DUAL):
-                op = new Laplacian_DUAL();
-                break;
-            case (DEF_LAPLACIAN_DUAL2):
-                op = new Laplacian_DUAL2();
-                break;
-            default:
-                op = new Laplacian();
-                break;
-            }
-            if (op != NULL) {
-                for (i=0; i<mesh_.n_vertices(); ++i) {
-                    // append anchors and constraints
-                    if (anchors[i])
-                        op->addAnchor(i);
-                    if (constraints[i])
-                        op->addHandle(i);
-
-                    // Determine the midpoint of the handles
-                    if (constraints[i]) {
-                        for (j=0; j<3; ++j) {
-                            if (minCorner[j] > mesh_.points()[i][j]) minCorner[j] = mesh_.points()[i][j];
-                            if (maxCorner[j] < mesh_.points()[i][j]) maxCorner[j] = mesh_.points()[i][j];
+                        // Determine the midpoint of the handles
+                        if (constraints[i]) {
+                            for (j=0; j<3; ++j) {
+                                if (minCorner[j] > mesh_.points()[i][j]) minCorner[j] = mesh_.points()[i][j];
+                                if (   maxCorner[j] < mesh_.points()[i][j]) maxCorner[j] = mesh_.points()[i][j];
+                            }
                         }
                     }
-                }
 
-                FILE *fid = fopen("constraints.dat", "w");
-                if (fid) {
-                    op->saveConstraints(fid);
-                    fclose(fid);
-                }
-                op->initialise(&mesh_);
+                    FILE *fid = fopen("constraints.dat", "w");
+                    if (fid) {
+                        op->saveConstraints(fid);
+                        fclose(fid);
+                    }
+                    op->initialise(&mesh_);
 
-                // Set the origin of our deformation trackball
-                midPt[0] = 0.5f*(maxCorner[0]-minCorner[0]);
-                midPt[1] = 0.5f*(maxCorner[1]-minCorner[1]);
-                midPt[2] = 0.5f*(maxCorner[2]-minCorner[2]);
-                deformTrackBall.setModelOrigin(midPt[0], midPt[1], midPt[2]);
-                deformTrackBall.setModelDistance(maxCorner[0] - midPt[0]); // Just use x manhattan distance
-                deformTrackBall.setWindowDimensions(width(), height());
+                    // Set the origin of our deformation trackball
+                    midPt[0] = 0.5f*(maxCorner[0]-minCorner[0]);
+                    midPt[1] = 0.5f*(maxCorner[1]-minCorner[1]);
+                    midPt[2] = 0.5f*(maxCorner[2]-minCorner[2]);
+                    deformTrackBall.setModelOrigin(midPt[0], midPt[1], midPt[2]);
+                    deformTrackBall.setModelDistance(maxCorner[0] - midPt[0]); // Just use x manhattan distance
+                    deformTrackBall.setWindowDimensions(width(), height());
+                    state = STATE_DEFORM;
+                }
             }
 
             break;
@@ -340,14 +342,16 @@ bool DeformWidget::eventFilter(QObject *o, QEvent *e) {
         break;
     case (QEvent::KeyRelease):
         // Determine if we are changing our deformation status
-        // Determine if we are changing our deformation status
         ke = (QKeyEvent *) e;
         switch(ke->key()) {
         case KEY_SELECT:
-            if (state == STATE_SELECT) state = STATE_IDLE;
+            if ((state == STATE_SELECT) && !ke->isAutoRepeat()) state = STATE_IDLE;
             break;
         case KEY_DEFORM:
-            if (state == STATE_DEFORM) state = STATE_IDLE;
+            if ((state == STATE_DEFORM) && !ke->isAutoRepeat()) {
+                state = STATE_IDLE;
+                printf("\nLeaving Deformation Mode");
+            }
             break;
         default:
             break;

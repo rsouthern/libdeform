@@ -105,7 +105,7 @@ void Laplacian::initialise(Mesh *m) {
     // Construct the LHS matrix L and add constraints
     clock_t start = clock();
     cholmod_sparse *L = constructLHS(m);
-    fprintf(stderr, "\ - nconstructLHS() - ELAPSED TIME %fs", (clock()-start)*SECS_PER_CLOCK);
+    fprintf(stderr, "\n - nconstructLHS() - ELAPSED TIME %fs", (clock()-start)*SECS_PER_CLOCK);
 
 
     // Construct the RHS (B for simple Laplacian)

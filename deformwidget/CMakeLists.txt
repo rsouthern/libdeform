@@ -13,9 +13,11 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED OpenGL REQUIRED)
 
-find_library(CHOLMESH_LIBRARY cholmesh PATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-find_library(DEFORM_LIBRARY deform PATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-find_library(TRACKBALL_LIBRARY trackball PATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+#find_library(CHOLMESH_LIBRARY cholmesh PATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+#find_library(DEFORM_LIBRARY deform PATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+#find_library(TRACKBALL_LIBRARY trackball PATH ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+
+link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 # Set the OpenGL preference. Alternative option is "LEGACY"
 set(OpenGL_GL_PREFERENCE GLVND)
@@ -64,9 +66,12 @@ target_link_libraries (deformwidget
   ${GLEW_LIBRARIES}
   ${GLUT_LIBRARIES}
   ${OPENGL_LIBRARIES}
-  ${CHOLMESH_LIBRARY}
-  ${DEFORM_LIBRARY}
-  ${TRACKBALL_LIBRARY}
+  #${CHOLMESH_LIBRARY}
+  #${DEFORM_LIBRARY}
+  #${TRACKBALL_LIBRARY}
+  cholmesh
+  deform
+  trackball
   Qt5::Widgets
   Qt5::OpenGL
   gmp

@@ -19,3 +19,5 @@ add_subdirectory(trackball)
 add_subdirectory(cholmesh)
 add_subdirectory(deform)
 add_subdirectory(deformwidget)
+
+add_dependencies(deformwidget deform cholmesh trackball)
