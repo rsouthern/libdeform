@@ -97,8 +97,12 @@ public:
     /// Override the open mesh function
     virtual bool open_mesh(const char* /*fname*/, OpenMesh::IO::Options /*_opt*/);
 
-    /// Override the OpenMesh render function for our special drawing routine
+    /// Override the OpenMesh render function for our special drawing routine. Called when updateGL is called in the parent.
     virtual void draw_scene(const std::string & /*_drawmode*/);
+
+    /// Called whenever resizeGL is called in the parent
+    virtual void resize_scene(const int &_w, const int &_h);
+
     virtual void draw_openmesh(const std::string& /*_drawmode*/);
 
 public slots:

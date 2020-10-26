@@ -125,7 +125,10 @@ protected:
 
   // draw the scene: will be called by the painGL() method.
   virtual void draw_scene(const std::string& _draw_mode);
-
+  
+  // Added by RS: this allows non-standard stuff to trigger when the size of the window resizes (e.g. FBO change)
+  virtual void resize_scene(const int &w, const int &h) {}
+  
   double performance(void);
   
   void setDefaultMaterial(void);
@@ -136,7 +139,6 @@ private slots:
   // popup menu clicked
   void slotDrawMode(QAction *_mode);  
   void slotSnapshot( void );
-
   
 private: // inherited
 

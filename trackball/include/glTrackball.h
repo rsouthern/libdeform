@@ -20,7 +20,7 @@ class glTrackball : public Trackball
   public:
 
     glTrackball();
-	virtual ~glTrackball() {};
+	  virtual ~glTrackball() {};
 	
     virtual void setGLView();
 

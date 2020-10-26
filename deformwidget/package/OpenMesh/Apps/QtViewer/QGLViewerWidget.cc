@@ -193,7 +193,7 @@ void
 QGLViewerWidget::initializeGL()
 {  
   // OpenGL state
-  glClearColor(0.0, 0.0, 0.0, 0.0);
+  glClearColor(1.0, 1.0, 1.0, 1.0); // changed to white by RS
   glDisable( GL_DITHER );
   glEnable( GL_DEPTH_TEST );
 
@@ -229,6 +229,7 @@ QGLViewerWidget::resizeGL( int _w, int _h )
 {
   update_projection_matrix();
   glViewport(0, 0, _w, _h);
+  resize_scene(_w, _h);
   updateGL();
 }
 

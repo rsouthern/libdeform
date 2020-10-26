@@ -16,17 +16,20 @@ glTrackball::glTrackball() : Trackball() {
   * Draw the trackball into the current render context
   */
 void glTrackball::draw() {
-    fprintf(stderr, "\nglTrackball::draw() - modelDistance=%f, modelOrigin=[%f,%f,%f]", modelDistance, modelOrigin[0],modelOrigin[1],modelOrigin[2]);
+    //fprintf(stderr, "\nglTrackball::draw() - modelDistance=%f, modelOrigin=[%f,%f,%f]", modelDistance, modelOrigin[0],modelOrigin[1],modelOrigin[2]);
 
     glMatrixMode(GL_MODELVIEW);    
     glPushMatrix();
 
+    glLineWidth(modelDistance*0.1f);
+
     setGLView();
-    glColor3f(1.0f,1.0f,1.0f);
+    glColor3f(0.0f,0.0f,0.0f);
     glutWireSphere(modelDistance, 10,10);
 
     glColor3f(1.0f, 0.0f, 0.0f);
     glBegin(GL_LINE);
+    
     glVertex3f(0.0f, 0.0f, 0.0f);
     glVertex3f(modelDistance, 0.0f, 0.0f);
     glEnd(); //GL_LINE

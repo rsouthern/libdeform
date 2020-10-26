@@ -237,12 +237,12 @@ bool DeformWidget::eventFilter(QObject *o, QEvent *e) {
         case(STATE_SELECT):
             // If the left button is down we are selecting anchors
             if (me->buttons() & Qt::LeftButton) {
-                fprintf(stderr,"\nSTATE_SELECT Anchors");                
+                //fprintf(stderr,"\nSTATE_SELECT Anchors");                
                 sbox.x = me->x(); sbox.y = height() - me->y();
                 sbox.type = STYPE_ANCHORS;
                 find_selected_vertices(me->x(), height() - me->y(), sbox.radius, &anchors);
             } else if (me->buttons() & Qt::MidButton) {
-                fprintf(stderr,"\nSTATE_SELECT Constraints");
+                //fprintf(stderr,"\nSTATE_SELECT Constraints");
                 sbox.x = me->x(); sbox.y = height() - me->y();
                 sbox.type = STYPE_CONSTRAINTS;
                 find_selected_vertices(me->x(), height() - me->y(), sbox.radius, &constraints);
@@ -252,8 +252,6 @@ bool DeformWidget::eventFilter(QObject *o, QEvent *e) {
             return true;
             break;
         case(STATE_DEFORM):
-            fprintf(stderr,"\nSTATE_DEFORM");
-
             if (op != NULL) {
                 // Create a transformation matrix for deformation
                 deformTrackBall.MouseMove(me->x(), me->y());
@@ -262,7 +260,6 @@ bool DeformWidget::eventFilter(QObject *o, QEvent *e) {
 
                 // Update the data in a mesh file for the purposes of saving
                 mesh_.setX(op->getX());
-
                 deformTrackBall.reset();
 
                 // Redraw the screen
@@ -312,7 +309,7 @@ bool DeformWidget::eventFilter(QObject *o, QEvent *e) {
                         if (constraints[i]) {
                             for (j=0; j<3; ++j) {
                                 if (minCorner[j] > mesh_.points()[i][j]) minCorner[j] = mesh_.points()[i][j];
-                                if (   maxCorner[j] < mesh_.points()[i][j]) maxCorner[j] = mesh_.points()[i][j];
+                                if (maxCorner[j] < mesh_.points()[i][j]) maxCorner[j] = mesh_.points()[i][j];
                             }
                         }
                     }
@@ -389,6 +386,17 @@ void DeformWidget::generate_unique_vertex_colors() {
             exit(0);
         }
     }
+}
+
+/**
+ * @brief Called when resizeGL called by parent. Needs to resize the FBO safely.
+ * 
+ * @param _w new window width
+ * @param _h new window height
+ */
+void DeformWidget::resize_scene(const int &_w, const int &_h) {
+    if (!fbo.isInit()) fbo.init(width(), height());
+    fbo.resize(_w, _h);
 }
 
 /**
