@@ -5,10 +5,10 @@ project(cholmesh)
 
 set(CMAKE_CXX_STANDARD 11)
 
-include_directories(include ${CMAKE_SOURCE_DIR}/include)
+include_directories(include ${CMAKE_SOURCE_DIR}/include $ENV{OPENMESH_PATH}/include $ENV{SUITESPARSE_PATH}/include)
 
-#find_library(CHOLMOD cholmod)
-#find_library(OPENMESH OpenMesh)
+find_library(OPENMESH_LIBRARIES OpenMeshCore OpenMeshTools PATHS $ENV{OPENMESH_PATH}/lib)
+find_library(SUITESPARSE_LIBRARIES cholmod PATHS $ENV{SUITESPARSE_PATH}/lib)
 
 # build the executable
 add_library(
@@ -19,6 +19,6 @@ add_library(
     src/cholmod_shared.cpp
 )
 
-target_link_libraries(cholmesh -lOpenMeshCore -lOpenMeshTools -lcholmod)
+target_link_libraries(cholmesh ${OPENMESH_LIBRARIES} ${SUITESPARSE_LIBRARIES})
 
 

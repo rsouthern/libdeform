@@ -22,7 +22,11 @@ link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 # Set the OpenGL preference. Alternative option is "LEGACY"
 set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
-find_package(GLEW REQUIRED)
+
+# find_package(GLEW REQUIRED)
+find_path(GLEW_INCLUDE_DIR GL/glew.h)
+find_library(GLEW_LIBRARY NAMES GLEW glew32 glew glew32s PATH_SUFFIXES lib64)
+
 find_package(GLUT REQUIRED)
 
 # The stuff below is so that CMake can identify QObjects and use MOC on them

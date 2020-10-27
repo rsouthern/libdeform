@@ -3,7 +3,7 @@
 
 
 #include <math.h>
-#include <suitesparse/cholmod.h>
+#include <cholmod.h>
 
 #ifndef EPSILON
 #define EPSILON 0.000001

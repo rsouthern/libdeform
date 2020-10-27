@@ -1,7 +1,7 @@
 #ifndef CHOLMOD_SHARED_H
 #define CHOLMOD_SHARED_H
 
-#include <suitesparse/cholmod.h>
+#include <cholmod.h>
 #include <string>
 
 /**

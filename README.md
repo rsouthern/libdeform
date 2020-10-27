@@ -21,9 +21,11 @@ Libs will be installed in <approot>/libs and the (only) binary will be in your <
 You will need an obj mesh to load.
 
 Dependencies:
-- OpenMesh (latest)
-- SuiteSparse
+- OpenMesh (https://www.graphics.rwth-aachen.de/software/openmesh/download/) - define a OPENMESH_PATH environment variable pointing to the base directory.
+- svdlibc (https://github.com/lucasmaystre/svdlibc) - define a SVDLIB_PATH environment variable pointing the base directory.
+- SuiteSparse (https://github.com/DrTimothyAldenDavis/SuiteSparse/releases) - define a SUITESPARSE_PATH environment variable pointing to the base directory.
 - CUDA (this was originally developed with CUDA 2.0)
+- cuda-samples (https://github.com/NVIDIA/cuda-samples) - define a CUDA_SAMPLES_PATH environment variable pointing to the base directory.
 - OpenGL, GLEW, GLU
 
 Usage instructions:

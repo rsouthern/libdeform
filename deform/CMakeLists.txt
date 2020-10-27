@@ -3,12 +3,14 @@ cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 project(cmake_and_cuda LANGUAGES CXX CUDA)
 
 # Note that the CUDA_SAMPLES_PATH needs to be set as an environment variable
-include_directories(include ${CMAKE_SOURCE_DIR}/include $ENV{SVDLIB_PATH} ../cholmesh/include $ENV{CUDA_SAMPLES_PATH}/Common $ENV{CUDA_DEPRECATED})
+include_directories(include ${CMAKE_SOURCE_DIR}/include $ENV{SVDLIB_PATH} ../cholmesh/include $ENV{CUDA_SAMPLES_PATH}/Common $ENV{CUDA_DEPRECATED} $ENV{SUITESPARSE_PATH}/include $ENV{SVDLIB_PATH} $ENV{OPENMESH_PATH}/include)
 
 # Uncomment the line below to get verbose compilation information
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
 find_package(CUDA)
+find_library(OPENMESH_LIBRARIES OpenMeshCore OpenMeshTools PATHS $ENV{OPENMESH_PATH}/lib)
+find_library(SUITESPARSE_LIBRARIES cholmod PATHS $ENV{SUITESPARSE_PATH}/lib)
 
 add_library(deform SHARED
 src/cgaltools.cpp
@@ -36,5 +38,5 @@ target_compile_features(deform PUBLIC cxx_std_11)
 set_target_properties(deform PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 
 # Link in CUDA and CURAND
-target_link_libraries(deform ${CUDA_LIBRARIES} ${CUDA_curand_LIBRARY} $ENV{SVDLIB_PATH}/libsvd.a)
+target_link_libraries(deform ${CUDA_LIBRARIES} ${CUDA_curand_LIBRARY} ${SUITESPARSE_LIBRARIES} ${OPENMESH_LIBRARIES} $ENV{SVDLIB_PATH}/libsvd.a)
 
