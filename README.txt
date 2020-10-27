@@ -1,4 +1,5 @@
-# Laplacian mesh deformation library
+# libdeform
+### Laplacian mesh deformation library
 
 This application provides 3 libraries and a Qt widget (based on the OpenMesh viewer) to visualise the libraries at work.
 - *libcholmesh*: A link between OpenMesh (a half-edge mesh data structure) and Cholmod (a Cholesky factorisation package). Also supports dual mesh representations. Clever and potentially reusable.
