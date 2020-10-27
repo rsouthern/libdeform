@@ -25,7 +25,7 @@ find_package(OpenGL REQUIRED)
 
 # find_package(GLEW REQUIRED)
 find_path(GLEW_INCLUDE_DIR GL/glew.h)
-find_library(GLEW_LIBRARY NAMES GLEW glew32 glew glew32s PATH_SUFFIXES lib64)
+find_library(GLEW_LIBRARIES NAMES GLEW glew32 glew glew32s PATHS /usr/lib/x86_64-linux-gnu /usr/lib64)
 
 find_package(GLUT REQUIRED)
 
@@ -41,6 +41,8 @@ include_directories (
 	${CMAKE_SOURCE_DIR}/deform/include 
 	${CMAKE_SOURCE_DIR}/trackball/include 
 	${CMAKE_SOURCE_DIR}/include
+	$ENV{SUITESPARSE_PATH}/include
+	$ENV{SUITESPARSE_PATH}
 )
 
 add_executable(deformwidget

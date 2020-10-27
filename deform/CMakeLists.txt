@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 project(cmake_and_cuda LANGUAGES CXX CUDA)
 
 # Note that the CUDA_SAMPLES_PATH needs to be set as an environment variable
-include_directories(include ${CMAKE_SOURCE_DIR}/include $ENV{SVDLIB_PATH} ../cholmesh/include $ENV{CUDA_SAMPLES_PATH}/Common $ENV{CUDA_DEPRECATED} $ENV{SUITESPARSE_PATH}/include $ENV{SVDLIB_PATH} $ENV{OPENMESH_PATH}/include)
+include_directories(include ${CMAKE_SOURCE_DIR}/include $ENV{SVDLIB_PATH} ../cholmesh/include $ENV{CUDA_SAMPLES_PATH}/Common $ENV{CUDA_DEPRECATED} $ENV{SUITESPARSE_PATH}/include $ENV{SVDLIB_PATH} $ENV{OPENMESH_PATH}/include $ENV{SUITESPARSE_PATH})
 
 # Uncomment the line below to get verbose compilation information
 #set(CMAKE_VERBOSE_MAKEFILE ON)

@@ -5,7 +5,7 @@ project(cholmesh)
 
 set(CMAKE_CXX_STANDARD 11)
 
-include_directories(include ${CMAKE_SOURCE_DIR}/include $ENV{OPENMESH_PATH}/include $ENV{SUITESPARSE_PATH}/include)
+include_directories(include ${CMAKE_SOURCE_DIR}/include $ENV{OPENMESH_PATH}/include $ENV{SUITESPARSE_PATH}/include $ENV{SUITESPARSE_PATH})
 
 find_library(OPENMESH_LIBRARIES OpenMeshCore OpenMeshTools PATHS $ENV{OPENMESH_PATH}/lib)
 find_library(SUITESPARSE_LIBRARIES cholmod PATHS $ENV{SUITESPARSE_PATH}/lib)
